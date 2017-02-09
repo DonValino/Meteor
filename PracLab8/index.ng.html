@@ -1,0 +1,79 @@
+<div ng-controller="ProductsCtrl">
+<table class="table table-bordered table-hover table-condensed">
+    <thead>
+    <tr>
+        <!-- Sortable table headers-->
+        <th>
+            <a href="#" ng-click="orderByField='id'; reverseSort = !reverseSort">ID
+                <span ng-show="orderByField == 'id'">
+                    <!-- change icon depending on sort direction -->
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                </span>
+            </a>
+        </th>
+        <th>
+            <a href="#" ng-click="orderByField='name'; reverseSort = !reverseSort">name
+                <span ng-show="orderByField == 'name'">
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                </span>
+            </a>
+        </th>
+        <th><a href="#" ng-click="orderByField='description'; reverseSort = !reverseSort">description
+                <span ng-show="orderByField == 'description'">
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                </span>
+        </a>
+        </th>
+        <th><a href="#" ng-click="orderByField='category'; reverseSort = !reverseSort">category
+                <span ng-show="orderByField == 'category'">
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                </span>
+        </a>
+        </th>
+        <th>
+            <a href="#" ng-click="orderByField='stock'; reverseSort = !reverseSort">stock
+                <span ng-show="orderByField == 'stock'">
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                </span>
+            </a>
+        </th>
+        <th>
+            <a href="#" ng-click="orderByField='price'; reverseSort = !reverseSort">price
+                <span ng-show="orderByField == 'price'">
+                    <span ng-show="!reverseSort" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                    <span ng-show="reverseSort" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+                </span>
+            </a>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+        <!--  Repeated row - one for each product, filter and sorting applied -->
+        <!-- if (this row selected for editing) show edit form; Else show normal view -->
+        <tr ng-repeat="p in productsList | filter:filterProducts | orderBy:orderByField:reverseSort"
+            ng-include="p.id == existingProduct.id ? 'partials/editProduct.ng.html' : 'partials/viewProduct.ng.html'">
+        </tr>
+    </tbody>
+</table>
+        <!-- The filter form -->
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <label for="filter"><span class="glyphicon glyphicon-filter"></span></label>
+                <input ng-model="filterProducts" type="text" class="form-control input-sm" id="filter" placeholder="Enter keyword">
+            </div>
+        </form>
+        <p><hr></p>
+	<!-- Show add product button if user logged in -->
+	 <div ng-show="$root.currentUser">
+        <!-- Toggle the Add Product/ Hide form button using ng-show directive -->
+        <button class="btn btn-primary" ng-show="!showForm" ng-click="showForm = !showForm">Add Product</button>
+        <button class="btn btn-primary" ng-show="showForm" ng-click="showForm = !showForm">Hide Form</button>
+        <!-- if (showForm == true) show the form; Else don't show the form -->
+        <div ng-include="showForm ? 'partials/addProduct.ng.html' : null"></div>
+	</div>
+</div>

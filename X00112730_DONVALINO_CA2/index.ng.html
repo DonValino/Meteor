@@ -1,0 +1,64 @@
+<div ng-controller="MessageCtrl">
+
+	<!-- Div containing the login control-->
+	<div class="row">
+		<div class="col-md-9">
+		<login-buttons></login-buttons>
+		</div>
+	</div>
+
+
+		<!-- Add new Message -->
+	<div class="row">
+		<div class="col-md-9">
+			<h4>Add Message</h4>
+			<form name="frmAddMessage" class="form" ng-submit="addMessage()">
+				<div class="form-group">
+					<label for="message">Message:</label>
+					<textarea class="form-control" rows="2" id="message" ng-model="newMessage.text"></textarea>
+				</div>
+				<input type="hidden" id="email" ng-model="newMessage.email">
+				<input type="hidden" id="timestamp" ng-model="newMessage.timestamp">
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">Add Message</button>
+				</div>
+			</form>
+		</div>
+  </div>
+	<hr>
+  <!-- Title -->
+  <div class="row">
+      <div class="col-md-9">
+          <h4>Messages</h4>
+      </div>
+  </div>
+  <!-- /.row -->
+
+  <!-- Messages-->
+  <div class="row" ng-show="$root.currentUser">
+		<div class="col-md-9">
+			
+			<!-- example message showing required format -->
+			<div class="well well-sm" >
+				<p><strong>email@cc.com</strong> - <em>today</em></p>
+				<p>Sample</p>
+				<p>
+					<button ng-click="" class="btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+				</p>
+			</div>
+			<!-- end example message format -->
+
+			<div ng-repeat="p in messageList | filter:filterMessageList | orderBy:orderByField:reverseSort">
+				<!-- Start Message-->
+				<p><strong>{{p.email}}</strong> - <em>{{p.timestamp}}</em></p>
+				<p>{{p.text}}</p>
+				<p>
+					<button ng-click="deleteMessage(p)" class="btn-xs btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+				</p>
+				<!-- end Message -->
+			</div>
+
+		</div>
+  </div>
+  <!-- /.row -->
+</div>

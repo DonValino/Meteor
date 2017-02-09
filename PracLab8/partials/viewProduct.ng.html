@@ -1,0 +1,17 @@
+<td>{{p.id}}</td>
+<td>{{p.name}}</td>
+<td>{{p.description}}</td>
+<td>{{p.category}}</td>
+<td>{{p.stock}}</td>
+<td>{{p.price | currency:"&euro;"}}
+</td>
+<!-- Show edit button if user logged in -->
+<td ng-show="$root.currentUser">
+    <button ng-click="editProduct(p)" class="btn-xs btn-warning">
+    <span class="glyphicon glyphicon-pencil"></span></button>
+</td>
+<!-- Show delete button if user logged in -->
+<td ng-show="$root.currentUser">
+    <button ng-click="deleteProduct(p)" class="btn-xs btn-danger">
+    <span class=" glyphicon glyphicon-trash"></span></button>
+</td>
